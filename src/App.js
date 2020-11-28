@@ -21,7 +21,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            {process.env.PGHOST}
           </a>
         </header>
       </div>
