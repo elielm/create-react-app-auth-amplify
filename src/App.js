@@ -9,26 +9,29 @@ Amplify.configure(aws_exports);
 
 class App extends Component {
     // Add your code here
-   pg = new Client({
-    user: 'postgres',
-    host: 'primary.cqfn2pbb0weo.us-east-1.rds.amazonaws.com',
-    database: 'doceoarts',
-    password: 'ArtEducates#Children!',
-    port: 5432
-  });
-
- res =  pg.connect();
-  out = pg.query(`select * from artist_engagement ae 
-  join artist a on a.id = ae.artist_id 
-  join engagement e on e.id = ae.engagement_id`,
-  (err, rows) => {
-    if (err) throw err;
-    res = rows
-    pg.end();
-    });
-  console.log(out);
-
+  
   render() {
+    pg = new Client({
+      user: 'postgres',
+      host: 'primary.cqfn2pbb0weo.us-east-1.rds.amazonaws.com',
+      database: 'doceoarts',
+      password: 'ArtEducates#Children!',
+      port: 5432
+    })
+  
+    pg.connect()
+    
+    pg.query(`select * from artist_engagement ae 
+    join artist a on a.id = ae.artist_id 
+    join engagement e on e.id = ae.engagement_id`,
+    (err, rows) => {
+      if (err) throw err;
+      res = rows
+      pg.end();
+      });
+    
+    console.log( res );
+  
     console.log(process.env.REACT_APP_PGHOST );
     return (
       <div className="App">
