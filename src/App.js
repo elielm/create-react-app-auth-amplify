@@ -4,9 +4,30 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth } from '@aws-amplify/core';
 import aws_exports from './aws-exports';
+
 Amplify.configure(aws_exports);
 
 class App extends Component {
+    // Add your code here
+   pg = new Client({
+    user: 'postgres',
+    host: 'primary.cqfn2pbb0weo.us-east-1.rds.amazonaws.com',
+    database: 'doceoarts',
+    password: 'ArtEducates#Children!',
+    port: 5432
+  });
+
+  pg.connect();
+  out = pg.query(`select * from artist_engagement ae 
+  join artist a on a.id = ae.artist_id 
+  join engagement e on e.id = ae.engagement_id`,
+  (err, rows) => {
+    if (err) throw err;
+    res = rows
+    pg.end();
+    });
+  console.log(out);
+  
   render() {
     console.log(process.env.REACT_APP_PGHOST );
     return (
