@@ -17,7 +17,7 @@ class App extends Component {
     port: 5432
   });
 
-  pg.connect();
+ res =  pg.connect();
   out = pg.query(`select * from artist_engagement ae 
   join artist a on a.id = ae.artist_id 
   join engagement e on e.id = ae.engagement_id`,
@@ -27,7 +27,7 @@ class App extends Component {
     pg.end();
     });
   console.log(out);
-  
+
   render() {
     console.log(process.env.REACT_APP_PGHOST );
     return (
