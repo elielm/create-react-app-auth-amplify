@@ -4,7 +4,7 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth } from '@aws-amplify/core';
 import aws_exports from './aws-exports';
-import pgLib from 'pg';
+const { Client, Pool } = require('pg').native
 
 Amplify.configure(aws_exports);
 
@@ -12,7 +12,7 @@ class App extends Component {
     // Add your code here
   
   render() {
-    const pg = new pgLib.Client({
+    const pg = new Client({
       user: 'postgres',
       host: 'primary.cqfn2pbb0weo.us-east-1.rds.amazonaws.com',
       database: 'doceoarts',
