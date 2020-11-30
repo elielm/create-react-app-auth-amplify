@@ -4,6 +4,7 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth } from '@aws-amplify/core';
 import aws_exports from './aws-exports';
+import pgLib from 'pg';
 
 Amplify.configure(aws_exports);
 
@@ -11,7 +12,7 @@ class App extends Component {
     // Add your code here
   
   render() {
-    pg = new Client({
+    const pg = new pgLib.Client({
       user: 'postgres',
       host: 'primary.cqfn2pbb0weo.us-east-1.rds.amazonaws.com',
       database: 'doceoarts',
@@ -26,11 +27,12 @@ class App extends Component {
     join engagement e on e.id = ae.engagement_id`,
     (err, rows) => {
       if (err) throw err;
-      res = rows
+      let res = rows;
+      console.log( res );
       pg.end();
       });
     
-    console.log( res );
+
   
     console.log(process.env.REACT_APP_PGHOST );
     return (
